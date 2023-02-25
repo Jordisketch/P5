@@ -87,6 +87,8 @@ namespace Logica.Models
         public DataTable ListarActivos() { 
             DataTable R = new DataTable();
 
+
+
             return R;
         }
 

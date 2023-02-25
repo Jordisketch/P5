@@ -1,4 +1,5 @@
-﻿using System;
+﻿using P520231_AllanD.Formularios;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,7 +17,7 @@ namespace P520231_AllanD
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new FrmLogin());
         }
     }
 }

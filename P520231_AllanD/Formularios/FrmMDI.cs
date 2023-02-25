@@ -8,13 +8,20 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace P520231_AllanD
+namespace P520231_AllanD.Formularios
 {
-    public partial class Form1 : Form
+    public partial class FrmMDI : Form
     {
-        public Form1()
+        public FrmMDI()
         {
             InitializeComponent();
         }
+
+        private void FrmMDI_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
+        }
+
+
     }
 }
