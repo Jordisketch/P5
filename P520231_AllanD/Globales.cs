@@ -9,7 +9,7 @@ namespace P520231_AllanD
 
         public static Form MiFormPrincipal = new Formularios.FrmMDI();
 
-        
+        public static Formularios.FrmUsuariosGestion MiFormGestionUsuarios = new Formularios.FrmUsuariosGestion();
 
     }
 }

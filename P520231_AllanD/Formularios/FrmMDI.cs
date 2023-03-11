@@ -22,6 +22,18 @@ namespace P520231_AllanD.Formularios
             Application.Exit();
         }
 
+        private void gestiónDeUsuariosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //control para que el formulario de gestión de usuarios se muestre 
+            //solo una vez
 
+            if (!Globales.MiFormGestionUsuarios.Visible)
+            {
+                Globales.MiFormGestionUsuarios = new FrmUsuariosGestion();
+
+                Globales.MiFormGestionUsuarios.Show();
+            }
+
+        }
     }
 }
