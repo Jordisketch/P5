@@ -46,8 +46,31 @@ namespace Logica.Models
             // se cambia el valor de R a true.
             bool R = false;
 
-            //acá va el código funcional que invoca a un procedimiento almacenado 
-            //que contiene el DML Insert
+            //pasos 1.6.1 y 1.6.2 
+            Conexion MiCnn = new Conexion();
+
+            MiCnn.ListaDeParametros.Add(new SqlParameter("@Correo", this.UsuarioCorreo));
+
+            //TODO: Encriptar la contraseña
+            MiCnn.ListaDeParametros.Add(new SqlParameter("@Contrasennia", this.UsuarioContrasennia));
+
+            MiCnn.ListaDeParametros.Add(new SqlParameter("@Nombre", this.UsuarioNombre));
+            MiCnn.ListaDeParametros.Add(new SqlParameter("@Cedula", this.UsuarioCedula));
+            MiCnn.ListaDeParametros.Add(new SqlParameter("@Telefono", this.UsuarioTelefono));
+            MiCnn.ListaDeParametros.Add(new SqlParameter("@Direccion", this.UsuarioDireccion));
+           
+            //normalmente los foreign keys tienen que ver con composiciones, en este caso 
+            //tenemos que extraer el valor del objeto compuesto 'MiRolTipo'
+            MiCnn.ListaDeParametros.Add(new SqlParameter("@IdRol", this.MiRolTipo.UsuarioRolID));
+
+            //pasos 1.6.3 y 1.6.4
+            int resultado = MiCnn.EjecutarInsertUpdateDelete("SPUsuarioAgregar");
+
+            //paso 1.6.5
+            if (resultado > 0)
+            {
+                R = true;
+            }
 
             return R;
         }
@@ -119,6 +142,22 @@ namespace Logica.Models
         {
             bool R = false;
 
+            //paso 1.3.1 y 1.3.2
+            Conexion MiCnn = new Conexion();
+
+            //agregamos el parametro de cedula 
+            MiCnn.ListaDeParametros.Add(new SqlParameter("@Cedula", this.UsuarioCedula));
+
+            DataTable consulta = new DataTable();
+            //paso 1.3.3 y 1.3.4
+            consulta = MiCnn.EjecutarSELECT("SPUsuarioConsultarPorCedula");
+
+            //paso 1.3.5
+            if (consulta != null && consulta.Rows.Count > 0)
+            {
+                R = true;
+            }
+
             return R;
         }
 
@@ -126,7 +165,24 @@ namespace Logica.Models
         {
             bool R = false;
 
+            //paso 1.4.1 y 1.4.2
+            Conexion MiCnn = new Conexion();
+
+            //agregamos el parametro de correo 
+            MiCnn.ListaDeParametros.Add(new SqlParameter("@Correo", this.UsuarioCorreo));
+
+            DataTable consulta = new DataTable();
+            //paso 1.4.3 y 1.4.4
+            consulta = MiCnn.EjecutarSELECT("SPUsuarioConsultarPorEmail");
+
+            //paso 1.4.5
+            if (consulta != null && consulta.Rows.Count > 0)
+            {
+                R = true;
+            }
+
             return R;
+
         }
 
         public DataTable ListarActivos() { 
