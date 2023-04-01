@@ -41,6 +41,8 @@ namespace P520231_AllanD.Formularios
 
             CargarListaDeUsuarios();
 
+            ActivarAgregar();
+
         }
 
         private void CargarListaDeUsuarios()
@@ -84,6 +86,20 @@ namespace P520231_AllanD.Formularios
             DgLista.ClearSelection();
         }
 
+        private void ActivarAgregar()
+        {
+            BtnAgregar.Enabled = true;
+            BtnModificar.Enabled = false;
+            BtnEliminar.Enabled = false;
+        }
+
+        private void ActivarEditarEliminar()
+        {
+            BtnAgregar.Enabled = false;
+            BtnModificar.Enabled = true;
+            BtnEliminar.Enabled = true;
+        }
+
         private void DgLista_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             //cuando seleccionemos una fila del datagrid se debe cargar la info de dicho usuario
@@ -91,8 +107,7 @@ namespace P520231_AllanD.Formularios
 
             if (DgLista.SelectedRows.Count == 1)
             {
-
-                //TODO: Limpiar el formulario 
+                LimpiarFormulario();
 
                 //de la colección de filas seleccionadas (que en este caso es solo una) 
                 //seleccionamos la fila en indice 0, o sea la primera 
@@ -133,7 +148,7 @@ namespace P520231_AllanD.Formularios
                     //combobox 
                     CbRolesUsuario.SelectedValue = MiUsuarioLocal.MiRolTipo.UsuarioRolID;
 
-                    //TODO: desactivar botones que no son necesario en este caso el de Agregar
+                    ActivarEditarEliminar();
 
                 }
 
@@ -147,6 +162,10 @@ namespace P520231_AllanD.Formularios
         private void BtnLimpiar_Click(object sender, EventArgs e)
         {
             LimpiarFormulario();
+
+            DgLista.ClearSelection();
+
+            ActivarAgregar();
         }
 
         private void LimpiarFormulario()
@@ -164,7 +183,7 @@ namespace P520231_AllanD.Formularios
         }
 
 
-        private bool ValidarDatosDigitados()
+        private bool ValidarDatosDigitados(bool OmitirPassword = false)
         {
             //evalúa que se hayan digitado los campos de texto en el formulario 
             bool R = false;
@@ -173,10 +192,33 @@ namespace P520231_AllanD.Formularios
                 !string.IsNullOrEmpty(TxtUsuarioCedula.Text.Trim()) &&
                 !string.IsNullOrEmpty(TxtUsuarioTelefono.Text.Trim()) &&
                 !string.IsNullOrEmpty(TxtUsuarioCorreo.Text.Trim()) &&
-                !string.IsNullOrEmpty(TxtUsuarioContrasennia.Text.Trim()) &&
                 CbRolesUsuario.SelectedIndex > -1)
             {
-                R = true;
+
+                if (OmitirPassword)
+                {
+                    //(PARA EDITAR) Si el password se omite entonces ya pasó la evaluacíón a este punto, retorna true
+                    R = true;
+                }
+                else
+                {
+                    //(PARA AGREGAR) en caso en el que haya que evaluar la contraseña se debe agregar otra condición 
+                    //logica
+                    if (!string.IsNullOrEmpty(TxtUsuarioContrasennia.Text.Trim()))
+                    {
+                        R = true;
+                    }
+                    else
+                    {
+                        //en caso en el que haga falta la contraseña, se le indica al usuario
+                        MessageBox.Show("Debe digitar una contraseña para el usuario", "Error de validación", MessageBoxButtons.OK);
+                        TxtUsuarioContrasennia.Focus();
+                        return false;
+
+                    }
+
+                }
+
             }
             else
             {
@@ -212,13 +254,6 @@ namespace P520231_AllanD.Formularios
                     return false;
                 }
 
-                //password
-                if (string.IsNullOrEmpty(TxtUsuarioContrasennia.Text.Trim()))
-                {
-                    MessageBox.Show("Debe digitar una contraseña para el usuario", "Error de validación", MessageBoxButtons.OK);
-                    TxtUsuarioContrasennia.Focus();
-                    return false;
-                }
 
                 //rol de usuario
                 if (CbRolesUsuario.SelectedIndex == -1)
@@ -323,7 +358,93 @@ namespace P520231_AllanD.Formularios
             }
         }
 
+        private void BtnModificar_Click(object sender, EventArgs e)
+        {
+            if (ValidarDatosDigitados(true))
+            {
+                //no es necesario capturar el ID desde el cuadro de texto ya que al consultarlo (cuando seleccionamos el usuario
+                //del datagrid), ya tenemos datos en el ID
+                //Este ID NO PUEDE SER MODIFICADO, los demás atributos si. 
+
+                MiUsuarioLocal.UsuarioNombre = TxtUsuarioNombre.Text.Trim();
+                MiUsuarioLocal.UsuarioCedula = TxtUsuarioCedula.Text.Trim();    
+                MiUsuarioLocal.UsuarioTelefono = TxtUsuarioTelefono.Text.Trim();
+                MiUsuarioLocal.UsuarioCorreo = TxtUsuarioCorreo.Text.Trim();
+
+                //como el cuadro de texto de la contraseña tiene un caracter en blanco 
+                //puedo asignar sin problema el valor de cuadro de texto al atributo, en el SP
+                //se evalúa si tiene o no datos. 
+                MiUsuarioLocal.UsuarioContrasennia = TxtUsuarioContrasennia.Text.Trim();
+
+                MiUsuarioLocal.MiRolTipo.UsuarioRolID = Convert.ToInt32(CbRolesUsuario.SelectedValue);
+
+                MiUsuarioLocal.UsuarioDireccion = TxtUsuarioDireccion.Text.Trim();
+
+                //según el diagrama de casos de uso expandido y secuencia normal para un CRUD (editar)
+                //es habitual consultar por el ID el item que se va a modificar, para asegurarse que 
+                //en el lapso de tiempo entre que se seleccionó el usuario y se modificaron los datos en pantalla
+                //aún exista el registro en la base de datos. (existe una posibilidad de que ya no exista debido a que
+                //en entornos donde hayan muchos usuario trabajando en el sistema algún otro esté modificando el mismo registro) 
+                //esto se llama concurrencia. 
+
+                if (MiUsuarioLocal.ConsultarPorID())
+                {
+                    DialogResult respuesta = MessageBox.Show("¿Está seguro de modificar el usuario?", "???", 
+                                                             MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                    if (respuesta == DialogResult.Yes)
+                    {
+                        if (MiUsuarioLocal.Editar())
+                        {
+                            MessageBox.Show("El Usuario ha sido modificado correctamente", ":)", MessageBoxButtons.OK);
+
+                            LimpiarFormulario(); 
+                            CargarListaDeUsuarios();
+                        }
+                    }
+                }
+            }
+        }
+
+        private void BtnEliminar_Click(object sender, EventArgs e)
+        {
+
+            if (MiUsuarioLocal.UsuarioID > 0 && MiUsuarioLocal.ConsultarPorID())
+            {
+                //tomando en cuenta que puedo estar viendo los usuario activos o inactivos
+                //este botón podría servir tanto para activar como para desactivar los usuarios
+                //El checlbox de la parte superior del forma me sirve para identificar esta 
+                //acción
+
+                if (CboxVerActivos.Checked)
+                {
+                    //DESACTIVAR USUARIO
+                    DialogResult r = MessageBox.Show("¿Está seguro de Eliminar al Usuario?", 
+                                                     "???", 
+                                                     MessageBoxButtons.YesNo, 
+                                                     MessageBoxIcon.Question);
+
+                    if (r == DialogResult.Yes) 
+                    {
+                        if (MiUsuarioLocal.Eliminar())
+                        {
+                            MessageBox.Show("El usuario ha sido eliminado correctamente.", "!!!", MessageBoxButtons.OK);
+                            LimpiarFormulario();
+                            CargarListaDeUsuarios();
+                        }
+                    
+                    }
+
+                }
+                else
+                {
+                    //ACTIVAR USUARIO
+
+                }
 
 
+            }
+
+        }
     }
 }

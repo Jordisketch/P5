@@ -89,7 +89,7 @@
             this.CboxVerActivos.AutoSize = true;
             this.CboxVerActivos.Checked = true;
             this.CboxVerActivos.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.CboxVerActivos.Location = new System.Drawing.Point(718, 24);
+            this.CboxVerActivos.Location = new System.Drawing.Point(725, 20);
             this.CboxVerActivos.Name = "CboxVerActivos";
             this.CboxVerActivos.Size = new System.Drawing.Size(175, 24);
             this.CboxVerActivos.TabIndex = 2;
@@ -351,12 +351,13 @@
             this.BtnModificar.BackColor = System.Drawing.Color.DarkGoldenrod;
             this.BtnModificar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnModificar.ForeColor = System.Drawing.Color.Black;
-            this.BtnModificar.Location = new System.Drawing.Point(211, 546);
+            this.BtnModificar.Location = new System.Drawing.Point(216, 546);
             this.BtnModificar.Name = "BtnModificar";
             this.BtnModificar.Size = new System.Drawing.Size(158, 38);
             this.BtnModificar.TabIndex = 6;
             this.BtnModificar.Text = "MODIFICAR";
             this.BtnModificar.UseVisualStyleBackColor = false;
+            this.BtnModificar.Click += new System.EventHandler(this.BtnModificar_Click);
             // 
             // BtnEliminar
             // 
@@ -369,6 +370,7 @@
             this.BtnEliminar.TabIndex = 7;
             this.BtnEliminar.Text = "ELIMINAR";
             this.BtnEliminar.UseVisualStyleBackColor = false;
+            this.BtnEliminar.Click += new System.EventHandler(this.BtnEliminar_Click);
             // 
             // BtnLimpiar
             // 
