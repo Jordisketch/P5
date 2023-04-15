@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System.ComponentModel.Design;
+using System.Windows.Forms;
 
 namespace P520231_AllanD
 {
@@ -10,6 +11,11 @@ namespace P520231_AllanD
         public static Form MiFormPrincipal = new Formularios.FrmMDI();
 
         public static Formularios.FrmUsuariosGestion MiFormGestionUsuarios = new Formularios.FrmUsuariosGestion();
+
+        //Debemos tener un obj de tipo Usuario que permita almacenar los datos del usuario
+        //que se haya logueado correctamente 
+        public static Logica.Models.Usuario MiUsuarioGlobal = new Logica.Models.Usuario();
+
 
     }
 }

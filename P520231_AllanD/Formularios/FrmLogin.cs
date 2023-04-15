@@ -35,7 +35,26 @@ namespace P520231_AllanD.Formularios
 
         private void BtnIngresar_Click(object sender, EventArgs e)
         {
-            //TODO: Se debe validar el usuario 
+
+            //validas que se haya digitado un usuario y contraseña 
+            if (!string.IsNullOrEmpty(TxtEmail.Text.Trim()) &&
+                !string.IsNullOrEmpty(TxtContrasennia.Text.Trim()))
+            {
+                string usuario = TxtEmail.Text.Trim();
+                string contrasennia = TxtContrasennia.Text.Trim();
+
+                //tratar de validar que los datos digitados sean correctos 
+                //En caso que la validación sea correcta, aplicamos los valores al usuario global
+                Globales.MiUsuarioGlobal = Globales.MiUsuarioGlobal.ValidarUsuario(usuario, contrasennia);
+
+                
+
+            }
+            else
+            {
+                MessageBox.Show("Faltan datos requeridos!", "Error de validación", MessageBoxButtons.OK);
+            }
+
 
             Globales.MiFormPrincipal.Show();
 
