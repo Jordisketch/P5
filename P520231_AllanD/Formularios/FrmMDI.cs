@@ -35,5 +35,43 @@ namespace P520231_AllanD.Formularios
             }
 
         }
+
+        private void FrmMDI_Load(object sender, EventArgs e)
+        {
+            //mostrar el usuario loguedo 
+
+            string InfoUsuario = string.Format("{0}-{1}({2})",
+                                                Globales.MiUsuarioGlobal.UsuarioNombre,
+                                                Globales.MiUsuarioGlobal.UsuarioCorreo,
+                                                Globales.MiUsuarioGlobal.MiRolTipo.UsuarioRolDescripcion);
+
+            LblUsuario.Text = InfoUsuario;
+
+            switch (Globales.MiUsuarioGlobal.MiRolTipo.UsuarioRolID)
+            {
+                case 1:
+                    //sería admin, no se oculta nada
+                    break;
+                case 2:
+                    //sería usuario normal, se deben ocultar algunas opciones de menú 
+                    gestiónDeUsuariosToolStripMenuItem.Visible = false;
+                    rolesDeUsuarioToolStripMenuItem.Visible = false;
+                    tiposDeProveedorToolStripMenuItem.Visible = false;
+                    tiposDeCompraToolStripMenuItem.Visible = false;
+                    break;
+            }
+
+
+        }
+
+        private void rEGISTRODECOMPRASToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!Globales.MiFormRegistroCompra.Visible)
+            {
+                Globales.MiFormRegistroCompra = new FrmRegistroCompra();
+
+                Globales.MiFormRegistroCompra.Show();
+            }
+        }
     }
 }

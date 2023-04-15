@@ -16,6 +16,8 @@ namespace P520231_AllanD
         //que se haya logueado correctamente 
         public static Logica.Models.Usuario MiUsuarioGlobal = new Logica.Models.Usuario();
 
+        public static Formularios.FrmRegistroCompra MiFormRegistroCompra = new Formularios.FrmRegistroCompra();
+
 
     }
 }

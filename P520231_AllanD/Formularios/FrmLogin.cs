@@ -47,19 +47,51 @@ namespace P520231_AllanD.Formularios
                 //En caso que la validación sea correcta, aplicamos los valores al usuario global
                 Globales.MiUsuarioGlobal = Globales.MiUsuarioGlobal.ValidarUsuario(usuario, contrasennia);
 
-                
+                if (Globales.MiUsuarioGlobal.UsuarioID > 0)
+                {
+                    //si la validación es correcta el Id debería tener un valor mayor a cero
+
+                    Globales.MiFormPrincipal.Show();
+
+                    this.Hide();
+
+                }
+                else
+                {
+                    MessageBox.Show("Usuario o Contraseña Incorrectas...", "Error de validación", MessageBoxButtons.OK);
+
+                    TxtContrasennia.Focus();
+                    TxtContrasennia.SelectAll();
+
+                }
+
+
 
             }
             else
             {
                 MessageBox.Show("Faltan datos requeridos!", "Error de validación", MessageBoxButtons.OK);
             }
+            
 
+        }
 
+        private void FrmLogin_KeyDown(object sender, KeyEventArgs e)
+        {
+            //al presionar cierta combinación de teclas el boton de ingreso directo aparece 
+            if (e.Shift & e.Alt & e.KeyCode == Keys.A)
+            {
+                //si presionamos shift + tab + a
+                BtnIngresoDirecto.Visible = true;
+            }
+
+        }
+
+        private void BtnIngresoDirecto_Click(object sender, EventArgs e)
+        {
             Globales.MiFormPrincipal.Show();
 
             this.Hide();
-
         }
     }
 }
