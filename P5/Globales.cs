@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.Design;
 using System.Windows.Forms;
 
-namespace P520231_AllanD
+namespace P5
 {
     public static class Globales
     {

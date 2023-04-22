@@ -8,21 +8,10 @@ namespace Logica.Services
 {
     public class Conexion
     {
-        //contiene info de la cadena de conexión a usar por la clase.
         string CadenaDeConexion { get; set; }
-
-        //este listado se usa para agregar los parámetros 
-        //que se pasarán al procedimiento almacenado.
 
         public List<SqlParameter> ListaDeParametros = new List<SqlParameter>();
 
-        /*
-         Esta función ejecuta un procedimiento almacenado. 
-         Recibe por parámetro el nombre del SP y además 
-         agrega cualquier parámetro tipo SqlParameter
-         que esté en la lista de parámetros "Parametros"
-         Sirve para consultas tipo: DELETE FROM, UPDATE, INSERT.
-        */
         public int EjecutarInsertUpdateDelete(String NombreSP)
         {
             int Retorno = 0;

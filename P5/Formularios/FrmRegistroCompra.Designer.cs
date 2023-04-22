@@ -1,4 +1,4 @@
-﻿namespace P520231_AllanD.Formularios
+﻿namespace P5.Formularios
 {
     partial class FrmRegistroCompra
     {

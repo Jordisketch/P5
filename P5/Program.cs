@@ -1,11 +1,11 @@
-﻿using P520231_AllanD.Formularios;
+﻿using P5.Formularios;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace P520231_AllanD
+namespace P5
 {
     internal static class Program
     {

@@ -79,10 +79,8 @@ namespace Logica
 
             StringBuilder Resultado = new StringBuilder();
 
-            //el for recorre cada byte del Hash y lo agrega a una cadena (stringbuilder)
             for (int i = 0; i < BytesConHash.Length; i++)
                 Resultado.Append(BytesConHash[i].ToString("x2").ToLower());
-            // el x2 lo que hace es poner los caracteres hexadecimales con cierto formato.
 
             return Resultado.ToString();
 

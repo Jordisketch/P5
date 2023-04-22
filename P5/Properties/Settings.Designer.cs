@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace P520231_AllanD.Properties
+namespace P5.Properties
 {
 
 

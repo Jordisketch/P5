@@ -12,7 +12,6 @@ namespace Logica.Models
 {
     public class Usuario
     {
-        //propiedades simples
         public int UsuarioID { get; set; }
         public string UsuarioCorreo { get; set; }
         public string UsuarioContrasennia { get; set; }
@@ -30,12 +29,10 @@ namespace Logica.Models
             MiRolTipo = new Usuario_Rol();
         }
 
-        //Funciones y métodos 
         public bool Agregar()
         {
             bool R = false;
 
-            //pasos 1.6.1 y 1.6.2 
             Conexion MiCnn = new Conexion();
 
             MiCnn.ListaDeParametros.Add(new SqlParameter("@Correo", this.UsuarioCorreo));
@@ -127,7 +124,6 @@ namespace Logica.Models
 
             MiCnn.ListaDeParametros.Add(new SqlParameter("@ID", this.UsuarioID));
 
-            //necesito un datatable para capturar la info del usuario 
             DataTable dt = new DataTable();
 
             dt = MiCnn.EjecutarSELECT("SPUsuarioConsultarPorID");

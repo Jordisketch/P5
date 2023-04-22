@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace P520231_AllanD.Formularios
+namespace P5.Formularios
 {
     public partial class FrmLogin : Form
     {
@@ -71,7 +71,6 @@ namespace P520231_AllanD.Formularios
         {
             if (e.Shift & e.Alt & e.KeyCode == Keys.A)
             {
-                //si presionamos shift + tab + a
                 BtnIngresoDirecto.Visible = true;
             }
 
