@@ -19,7 +19,6 @@ namespace P520231_AllanD.Formularios
 
         private void BtnCancelar_Click(object sender, EventArgs e)
         {
-            //CIERRA LA APP
             Application.Exit();
         }
 
@@ -42,17 +41,12 @@ namespace P520231_AllanD.Formularios
             {
                 string usuario = TxtEmail.Text.Trim();
                 string contrasennia = TxtContrasennia.Text.Trim();
-
-                //tratar de validar que los datos digitados sean correctos 
-                //En caso que la validación sea correcta, aplicamos los valores al usuario global
                 Globales.MiUsuarioGlobal = Globales.MiUsuarioGlobal.ValidarUsuario(usuario, contrasennia);
 
                 if (Globales.MiUsuarioGlobal.UsuarioID > 0)
                 {
-                    //si la validación es correcta el Id debería tener un valor mayor a cero
 
                     Globales.MiFormPrincipal.Show();
-
                     this.Hide();
 
                 }
@@ -64,13 +58,10 @@ namespace P520231_AllanD.Formularios
                     TxtContrasennia.SelectAll();
 
                 }
-
-
-
             }
             else
             {
-                MessageBox.Show("Faltan datos requeridos!", "Error de validación", MessageBoxButtons.OK);
+                MessageBox.Show("Faltan datos requeridos.", "Error de validación", MessageBoxButtons.OK);
             }
             
 
@@ -78,7 +69,6 @@ namespace P520231_AllanD.Formularios
 
         private void FrmLogin_KeyDown(object sender, KeyEventArgs e)
         {
-            //al presionar cierta combinación de teclas el boton de ingreso directo aparece 
             if (e.Shift & e.Alt & e.KeyCode == Keys.A)
             {
                 //si presionamos shift + tab + a
