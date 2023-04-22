@@ -14,7 +14,6 @@ namespace Logica.Models
 
         public DataTable Listar()
         {
-            // Create a new DataTable and add two columns to it
             DataTable R = new DataTable();
 
             // Return the DataTable

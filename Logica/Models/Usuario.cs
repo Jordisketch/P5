@@ -22,28 +22,17 @@ namespace Logica.Models
         public string  UsuarioDireccion { get; set; }
         public bool Activo { get; set; }
 
-        //propiedaes compuestas 
         public Usuario_Rol MiRolTipo { get; set; }
 
-        //normalmente cuando tenemos propiedades compuestas con tipos que 
-        //hemos programado nosotros mismos, debemos instanciar dichas propiedaes
-        //ya que son Objetos. 
-        //para esto recomiendo hacerlo en el constructor de la clase 
         public Usuario()
         {
-            //al crear una nueva instancia de la clase Usuario, se ejecuta el código
-            //de este constructor, y también se crea una nueva instacia de la clase
-            //usuario_rol para el objeto MiRolTipo.
+
             MiRolTipo = new Usuario_Rol();
         }
 
         //Funciones y métodos 
         public bool Agregar()
         {
-            //cuando la función devuelve un bool me gusta inicializar la variable de 
-            //retorno en false (tiende a negativo el resultado de la fn) 
-            //y SOLO si la operación (en este caso Insert) sale correcta 
-            // se cambia el valor de R a true.
             bool R = false;
 
             //pasos 1.6.1 y 1.6.2 
@@ -61,14 +50,10 @@ namespace Logica.Models
             MiCnn.ListaDeParametros.Add(new SqlParameter("@Telefono", this.UsuarioTelefono));
             MiCnn.ListaDeParametros.Add(new SqlParameter("@Direccion", this.UsuarioDireccion));
            
-            //normalmente los foreign keys tienen que ver con composiciones, en este caso 
-            //tenemos que extraer el valor del objeto compuesto 'MiRolTipo'
             MiCnn.ListaDeParametros.Add(new SqlParameter("@IdRol", this.MiRolTipo.UsuarioRolID));
 
-            //pasos 1.6.3 y 1.6.4
             int resultado = MiCnn.EjecutarInsertUpdateDelete("SPUsuarioAgregar");
 
-            //paso 1.6.5
             if (resultado > 0)
             {
                 R = true;
@@ -95,8 +80,6 @@ namespace Logica.Models
             MiCnn.ListaDeParametros.Add(new SqlParameter("@Telefono", this.UsuarioTelefono));
             MiCnn.ListaDeParametros.Add(new SqlParameter("@Direccion", this.UsuarioDireccion));
 
-            //normalmente los foreign keys tienen que ver con composiciones, en este caso 
-            //tenemos que extraer el valor del objeto compuesto 'MiRolTipo'
             MiCnn.ListaDeParametros.Add(new SqlParameter("@IdRol", this.MiRolTipo.UsuarioRolID));
 
             MiCnn.ListaDeParametros.Add(new SqlParameter("@ID", this.UsuarioID));
@@ -132,11 +115,6 @@ namespace Logica.Models
         public bool Activar()
         {
             bool R = false;
-
-            //TAREA: crear la funcionalidad para activar un usuario 
-            //incluso este proceso, el SP y la implementación en el UI. 
-            //es lo inverso a ELIMINAR()
-
             return R;
         }
 
@@ -177,9 +155,6 @@ namespace Logica.Models
 
             if (dt != null && dt.Rows.Count > 0)
             { 
-                //esta consulta debería tener solo un registro, 
-                //se crea un objeto de tipo datarow para capturar la info 
-                //contenida en index 0 del dt (datatable)
                 DataRow dr = dt.Rows[0];
             
                 R.UsuarioID = Convert.ToInt32(dr["UsuarioID"]);
@@ -198,7 +173,6 @@ namespace Logica.Models
 
             }
 
-
             return R;
         }
 
@@ -208,17 +182,14 @@ namespace Logica.Models
         {
             bool R = false;
 
-            //paso 1.3.1 y 1.3.2
             Conexion MiCnn = new Conexion();
 
             //agregamos el parametro de cedula 
             MiCnn.ListaDeParametros.Add(new SqlParameter("@Cedula", this.UsuarioCedula));
 
             DataTable consulta = new DataTable();
-            //paso 1.3.3 y 1.3.4
             consulta = MiCnn.EjecutarSELECT("SPUsuarioConsultarPorCedula");
 
-            //paso 1.3.5
             if (consulta != null && consulta.Rows.Count > 0)
             {
                 R = true;
@@ -231,17 +202,13 @@ namespace Logica.Models
         {
             bool R = false;
 
-            //paso 1.4.1 y 1.4.2
             Conexion MiCnn = new Conexion();
 
-            //agregamos el parametro de correo 
             MiCnn.ListaDeParametros.Add(new SqlParameter("@Correo", this.UsuarioCorreo));
 
             DataTable consulta = new DataTable();
-            //paso 1.4.3 y 1.4.4
             consulta = MiCnn.EjecutarSELECT("SPUsuarioConsultarPorEmail");
 
-            //paso 1.4.5
             if (consulta != null && consulta.Rows.Count > 0)
             {
                 R = true;
@@ -256,8 +223,6 @@ namespace Logica.Models
 
             Conexion MiCnn = new Conexion();
 
-            //en este caso como el SP tiene un parámetro, debemos por lo tanto definir ese parámetro 
-            //en la lista de parámetros del objeto de conexion 
             MiCnn.ListaDeParametros.Add(new SqlParameter("@VerActivos", true));
 
             MiCnn.ListaDeParametros.Add(new SqlParameter("@FiltroBusqueda", pFiltroBusqueda));
@@ -272,9 +237,6 @@ namespace Logica.Models
             DataTable R = new DataTable();
 
             Conexion MiCnn = new Conexion();
-
-            //en este caso como el SP tiene un parámetro, debemos por lo tanto definir ese parámetro 
-            //en la lista de parámetros del objeto de conexion 
             MiCnn.ListaDeParametros.Add(new SqlParameter("@VerActivos", false));
             MiCnn.ListaDeParametros.Add(new SqlParameter("@FiltroBusqueda", pFiltroBusqueda));
 
@@ -302,9 +264,6 @@ namespace Logica.Models
 
             if (dt != null && dt.Rows.Count > 0)
             {
-                //esta consulta debería tener solo un registro, 
-                //se crea un objeto de tipo datarow para capturar la info 
-                //contenida en index 0 del dt (datatable)
                 DataRow dr = dt.Rows[0];
 
                 R.UsuarioID = Convert.ToInt32(dr["UsuarioID"]);
@@ -326,11 +285,6 @@ namespace Logica.Models
             return R;
 
         }
-
-
-
-
-
 
     }
 }

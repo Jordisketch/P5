@@ -16,8 +16,6 @@ namespace Logica.Models
         {
             DataTable R = new DataTable();
 
-            //acá va el código funcional que carga la lista de categorías 
-
             return R;
         }
 
