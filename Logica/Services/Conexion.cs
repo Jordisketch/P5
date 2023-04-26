@@ -66,7 +66,7 @@ namespace Logica.Services
                 }
                 SqlDataAdapter MyAdaptador = new SqlDataAdapter(MyComando);
 
-                MyAdaptador.Fill(Retorno);
+                    MyAdaptador.Fill(Retorno);
                 if (CargarEsquema)
                 {
                     MyAdaptador.FillSchema(Retorno, SchemaType.Source);

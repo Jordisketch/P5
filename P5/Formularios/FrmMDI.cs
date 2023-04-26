@@ -24,8 +24,6 @@ namespace P5.Formularios
 
         private void gestiónDeUsuariosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //control para que el formulario de gestión de usuarios se muestre 
-            //solo una vez
 
             if (!Globales.MiFormGestionUsuarios.Visible)
             {
