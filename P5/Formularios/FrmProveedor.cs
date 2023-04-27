@@ -18,13 +18,12 @@ namespace P5.Formularios
         private Logica.Models.TipoProveedor TipoProveedor { get; set; }
 
 
-        //lista local de usuarios que se visualizan en el datagridview
         private DataTable ListaProveedores { get; set; }
         public FrmProveedor() => InitializeComponent();
 
         private void FrmProveedor_Load(object sender, EventArgs e)
         {
-            //cargarProveedores();
+            cargarProveedores();
             cargarTiposProveedores();
         }
 
@@ -40,10 +39,6 @@ namespace P5.Formularios
             ComboTipoProveedor.DataSource = dataTable;
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
         private void guardarClick(object sender, EventArgs e)
         {
             // valida que el formulario venga completo
@@ -73,15 +68,6 @@ namespace P5.Formularios
                 MessageBox.Show("Error al guardar los datos, intente de nuevo", "Error al guardar los datos", MessageBoxButtons.OK);
 
             }
-
-        }
-
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
 
         }
 

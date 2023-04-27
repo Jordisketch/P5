@@ -141,7 +141,6 @@
             this.LblCedulaProveedor.Size = new System.Drawing.Size(40, 13);
             this.LblCedulaProveedor.TabIndex = 3;
             this.LblCedulaProveedor.Text = "Cedula";
-            this.LblCedulaProveedor.Click += new System.EventHandler(this.label1_Click);
             // 
             // TxtCedulaProveedor
             // 
@@ -208,7 +207,6 @@
             this.ComboTipoProveedor.Name = "ComboTipoProveedor";
             this.ComboTipoProveedor.Size = new System.Drawing.Size(121, 21);
             this.ComboTipoProveedor.TabIndex = 11;
-            this.ComboTipoProveedor.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // RadioActivoProveedorNo
             // 
@@ -246,7 +244,6 @@
             this.TxtDireccionProveedor.Name = "TxtDireccionProveedor";
             this.TxtDireccionProveedor.Size = new System.Drawing.Size(100, 20);
             this.TxtDireccionProveedor.TabIndex = 15;
-            this.TxtDireccionProveedor.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // dataGridView1
             // 
