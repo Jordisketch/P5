@@ -33,6 +33,17 @@ namespace P5.Formularios
             }
 
         }
+        private void gestiónDeProveedoresToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            if (!Globales.MiFormGestionProveedores.Visible)
+            {
+                Globales.MiFormGestionProveedores = new FrmProveedor();
+
+                Globales.MiFormGestionProveedores.Show();
+            }
+
+        }
 
         private void FrmMDI_Load(object sender, EventArgs e)
         {

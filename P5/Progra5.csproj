@@ -58,6 +58,12 @@
     <Compile Include="Formularios\FrmMDI.Designer.cs">
       <DependentUpon>FrmMDI.cs</DependentUpon>
     </Compile>
+    <Compile Include="Formularios\FrmProveedor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\FrmProveedor.Designer.cs">
+      <DependentUpon>FrmProveedor.cs</DependentUpon>
+    </Compile>
     <Compile Include="Formularios\FrmRegistroCompra.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -71,6 +77,11 @@
       <DependentUpon>FrmUsuariosGestion.cs</DependentUpon>
     </Compile>
     <Compile Include="Globales.cs" />
+    <Compile Include="P5_2023_1DataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>P5_2023_1DataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Validaciones.cs" />
@@ -79,6 +90,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FrmMDI.resx">
       <DependentUpon>FrmMDI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\FrmProveedor.resx">
+      <DependentUpon>FrmProveedor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FrmRegistroCompra.resx">
       <DependentUpon>FrmRegistroCompra.cs</DependentUpon>
@@ -96,6 +110,17 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="P5_2023_1DataSet.xsc">
+      <DependentUpon>P5_2023_1DataSet.xsd</DependentUpon>
+    </None>
+    <None Include="P5_2023_1DataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>P5_2023_1DataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="P5_2023_1DataSet.xss">
+      <DependentUpon>P5_2023_1DataSet.xsd</DependentUpon>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

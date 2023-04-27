@@ -20,9 +20,27 @@ namespace Logica.Models
         public string ProveedorNotas { get; set; }
         public bool Activo { get; set; }
 
-        public bool Agregar()
+        public bool Agregar(Proveedor proveedor)
         {
-            throw new System.Exception("Not implemented");
+            if (proveedor == null) return false;
+
+            Conexion MiCnn = new Conexion();
+
+            MiCnn.ListaDeParametros.Add(new SqlParameter("@ProveedorNombre", proveedor.ProveedorNombre));
+            MiCnn.ListaDeParametros.Add(new SqlParameter("@ProveedorCedula", proveedor.ProveedorCedula));
+            MiCnn.ListaDeParametros.Add(new SqlParameter("@ProveedorEmail", proveedor.ProveedorEmail));
+            MiCnn.ListaDeParametros.Add(new SqlParameter("@ProveedorDireccion", proveedor.ProveedorDireccion));
+            MiCnn.ListaDeParametros.Add(new SqlParameter("@ProveedorNotas", proveedor.ProveedorNotas));
+            MiCnn.ListaDeParametros.Add(new SqlParameter("@Activo", proveedor.Activo));
+            MiCnn.ListaDeParametros.Add(new SqlParameter("@ProveedorTipoID", proveedor.MiTipoProveedor));
+
+            //necesito un datatable para capturar la info del usuario 
+            DataTable dt = new DataTable();
+
+            dt = MiCnn.EjecutarSELECT("SPGuardarProveedor");
+
+            return dt != null && dt.Rows.Count > 0 ? true: false;
+
         }
         public bool Editar()
         {
@@ -50,6 +68,7 @@ namespace Logica.Models
             DataTable R = new DataTable();
 
             Conexion MiCnn = new Conexion();
+
 
             MiCnn.ListaDeParametros.Add(new SqlParameter("@VerActivos", verActivos));
             MiCnn.ListaDeParametros.Add(new SqlParameter("@FiltroBusqueda", FiltroBusqueda));

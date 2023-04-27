@@ -17,10 +17,8 @@ namespace P5.Formularios
         //usar objetos individuales en las funcion puede provocar desorden y 
         //complicar más la lectura del código fuente. 
 
-        //objeto local para usuario 
         private Logica.Models.Usuario MiUsuarioLocal { get; set; }
 
-        //lista local de usuarios que se visualizan en el datagridview
         private DataTable ListaUsuarios { get; set; }
 
 
@@ -116,22 +114,13 @@ namespace P5.Formularios
             {
                 LimpiarFormulario();
 
-                //de la colección de filas seleccionadas (que en este caso es solo una) 
-                //seleccionamos la fila en indice 0, o sea la primera 
                 DataGridViewRow MiFila = DgLista.SelectedRows[0];
 
-                //lo que necesito es el valor del ID del usuario para realizaer la consulta 
-                //y traer todos los datos para llenar el objeto de usuario local 
                 int IdUsuario = Convert.ToInt32(MiFila.Cells["CUsuarioID"].Value);
 
-                //para no asumir riesgos se reinstancia el usuario local 
                 MiUsuarioLocal = new Logica.Models.Usuario();
 
-                //ahora le agregarmos el valor obtenido por la fila al ID del usuario local
                 MiUsuarioLocal.UsuarioID = IdUsuario;
-
-                //una vez que tengo el objeto local con el valor del id, puedo ir a consultar
-                //el usuario por ese id y llenar el resto de atributos. 
                 MiUsuarioLocal = MiUsuarioLocal.ConsultarPorIDRetornaUsuario();
 
                 //validamos que el usuario local tenga datos 
@@ -152,7 +141,6 @@ namespace P5.Formularios
 
                     TxtUsuarioDireccion.Text = MiUsuarioLocal.UsuarioDireccion;
 
-                    //combobox 
                     CbRolesUsuario.SelectedValue = MiUsuarioLocal.MiRolTipo.UsuarioRolID;
 
                     ActivarEditarEliminar();
@@ -192,7 +180,6 @@ namespace P5.Formularios
 
         private bool ValidarDatosDigitados(bool OmitirPassword = false)
         {
-            //evalúa que se hayan digitado los campos de texto en el formulario 
             bool R = false;
 
             if (!string.IsNullOrEmpty(TxtUsuarioNombre.Text.Trim()) &&
@@ -209,15 +196,13 @@ namespace P5.Formularios
                 }
                 else
                 {
-                    //(PARA AGREGAR) en caso en el que haya que evaluar la contraseña se debe agregar otra condición 
-                    //logica
+           
                     if (!string.IsNullOrEmpty(TxtUsuarioContrasennia.Text.Trim()))
                     {
                         R = true;
                     }
                     else
                     {
-                        //en caso en el que haga falta la contraseña, se le indica al usuario
                         MessageBox.Show("Debe digitar una contraseña para el usuario", "Error de validación", MessageBoxButtons.OK);
                         TxtUsuarioContrasennia.Focus();
                         return false;
@@ -229,7 +214,6 @@ namespace P5.Formularios
             }
             else
             {
-                //qué pasa cuando algo falta? 
                 if (string.IsNullOrEmpty(TxtUsuarioNombre.Text.Trim()))
                 {
                     MessageBox.Show("Debe digitar un nombre para el usuario", "Error de validación", MessageBoxButtons.OK);
@@ -237,7 +221,6 @@ namespace P5.Formularios
                     return false;
                 }
 
-                //cedula
                 if (string.IsNullOrEmpty(TxtUsuarioCedula.Text.Trim()))
                 {
                     MessageBox.Show("Debe digitar una cédula para el usuario", "Error de validación", MessageBoxButtons.OK);
@@ -245,7 +228,6 @@ namespace P5.Formularios
                     return false;
                 }
 
-                //telefono
                 if (string.IsNullOrEmpty(TxtUsuarioTelefono.Text.Trim()))
                 {
                     MessageBox.Show("Debe digitar un teléfono para el usuario", "Error de validación", MessageBoxButtons.OK);
@@ -253,7 +235,6 @@ namespace P5.Formularios
                     return false;
                 }
 
-                //correo
                 if (string.IsNullOrEmpty(TxtUsuarioCorreo.Text.Trim()))
                 {
                     MessageBox.Show("Debe digitar un correo para el usuario", "Error de validación", MessageBoxButtons.OK);
@@ -262,7 +243,6 @@ namespace P5.Formularios
                 }
 
 
-                //rol de usuario
                 if (CbRolesUsuario.SelectedIndex == -1)
                 {
                     MessageBox.Show("Debe seleccionar un rol para el usuario", "Error de validación", MessageBoxButtons.OK);

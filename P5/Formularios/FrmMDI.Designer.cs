@@ -111,6 +111,7 @@
             this.gestiónDeProveedoresToolStripMenuItem.Name = "gestiónDeProveedoresToolStripMenuItem";
             this.gestiónDeProveedoresToolStripMenuItem.Size = new System.Drawing.Size(249, 26);
             this.gestiónDeProveedoresToolStripMenuItem.Text = "Gestión de Proveedores";
+            this.gestiónDeProveedoresToolStripMenuItem.Click += new System.EventHandler(this.gestiónDeProveedoresToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
@@ -245,7 +246,7 @@
             // toolStripStatusLabel1
             // 
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(65, 17);
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(59, 17);
             this.toolStripStatusLabel1.Text = "USUARIO:";
             // 
             // LblUsuario

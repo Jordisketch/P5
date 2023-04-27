@@ -32,8 +32,7 @@ namespace Logica.Services
 
                 MyCnn.Open();
 
-                //Si el comando a ejecutar en un DML (update, Insert o delete) 
-                //establecer SET NOCOUNT OFF; en el SP 
+      
 
                 Retorno = MyComando.ExecuteNonQuery();
             }
@@ -41,14 +40,7 @@ namespace Logica.Services
             return Retorno;
         }
 
-        /*
-         Esta función ejecuta un procedimiento almacenado. 
-         Recibe por parámetro el nombre del SP y además 
-         agrega cualquier parámetro tipo SqlParameter
-         que esté en la lista de parámetros "ListadoParametros". 
-         Sirve para hacer consultas tipo: SELECT FROM y crear un
-         DataTable con dicha info.
-        */
+       
         public DataTable EjecutarSELECT(String NombreSP, bool CargarEsquema = false)
         {
             DataTable Retorno = new DataTable();
@@ -98,13 +90,9 @@ namespace Logica.Services
             return Retorno;
         }
 
-        //Constructor. Carga la info del app.config
-        //en la cadena de conexión al momento de crear 
-        //una instancia nueva de la clase.
         public Conexion()
         {
             this.CadenaDeConexion = ConfigurationManager.ConnectionStrings["CNNSTR"].ToString();
-
         }
 
     }
